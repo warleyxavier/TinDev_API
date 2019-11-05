@@ -29,13 +29,8 @@ export default class DeveloperRepository {
                 return reject(new HttpError(400, "Não foi possível verificar se o usuário já existe"));
             }
 
-            console.info("developerThatAlreadyExists");
-            console.info(developerThatAlreadyExists);
-
             if (developerThatAlreadyExists)
-                return reject(new HttpError(400, "Usuário já está cadastrado no sistema"));
-
-            console.log(developer);
+                return resolve(developerThatAlreadyExists);
 
             this.manager.save<Developer>(developer)
                 .then(newDeveloper => resolve(newDeveloper))
@@ -139,8 +134,6 @@ export default class DeveloperRepository {
                     if (!isNullOrUndefined(value))
                         return value;
                 });
-
-                console.log(IdsToExclude);
 
                 let developers: Developer[] = await this.manager.find(Developer, 
                     {id: Not(In(IdsToExclude))}

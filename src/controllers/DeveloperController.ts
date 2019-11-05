@@ -14,7 +14,7 @@ export default class DeveloperController {
         this.repository = new DeveloperRepository();
     };
 
-    @Get("/")
+    @Post("/")
     async insert(@Body() developer: Developer) {
 
         const response = await axios.get(`https://api.github.com/users/${developer.User}`);
